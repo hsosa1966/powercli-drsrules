@@ -1,6 +1,7 @@
 # Source URL https://deangrant.wordpress.com/2014/07/08/powercli-retrieving-drs-rules/
 Import-Module VMware.VimAutomation.Core
 Connect-VIServer raus-dc1-vc01.ravagoamericas.com
+$GetDate = Get-Date -UFormat %Y%m%d
 $DRSRules = Get-Cluster | Get-DrsRule
 $Results = ForEach ($DRSRule in $DRSRules)
      {    
@@ -16,5 +17,5 @@ $Results = ForEach ($DRSRule in $DRSRules)
         } 
       $VMs -join ","}}     
      }
-$Results | Export-Csv -NoTypeInformation -Path _DRSrules.csv
+$Results | Export-Csv -NoTypeInformation $GetDate-DRSrules.csv
 Disconnect-VIServer raus-dc1-vc01.ravagoamericas.com -Confirm:$false
